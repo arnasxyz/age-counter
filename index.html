@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Counter</title>
+    <style>
+        body {
+
+    font-family: 'Courier New', Courier, monospace; /* Using a monospace font */
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+#counter {
+    font-size: 3em;
+}
+
+    
+        #counter {
+            font-size: 5em;
+        }
+    </style>
+</head>
+<body>
+    <div id="counter"></div>
+
+    <script>
+       const MILLI_TO_YEARS = 31556952000;
+const bdayString = "1994-11-30T00:00:00"; // Your birthdate
+
+let ageDecimal;
+
+function calculateAge() {
+    const bday = new Date(bdayString);
+    const now = new Date();
+    const age = (now - bday) / MILLI_TO_YEARS;
+    const ageWhole = Math.floor(age);
+    ageDecimal = (age - ageWhole).toFixed(2);
+    return ageWhole;
+}
+
+let ageWhole = calculateAge();
+
+function updateCounter() {
+    ageDecimal = parseFloat(ageDecimal) + 0.00001;
+    if (ageDecimal >= 1) {
+        ageWhole += 1;
+        ageDecimal -= 1; // Subtract the whole number to keep the decimal part
+    }
+    document.getElementById('counter').textContent = `${ageWhole}.${(ageDecimal.toFixed(5)).slice(2)}`;
+}
+
+
+setInterval(updateCounter, 100);  // Update the age every 100 milliseconds
+
+
+    </script>
+</body>
+</html>
